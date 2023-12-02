@@ -18,6 +18,14 @@ async function handler(request: Request) {
   const wh = new Webhook(webhookSecret);
   let evt: Event | null = null;
 
+  const params = {
+    publicMetadata: {
+      role: "user",
+    },
+  };
+
+  await clerkClient.users.updateUser(payload?.data.id, params);
+
   try {
     evt = wh.verify(
       JSON.stringify(payload),
